@@ -1,0 +1,27 @@
+{
+  "name": "hachure-fill",
+  "version": "0.1.0",
+  "description": "Fill a polygon with lines ",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pshihn/hachure-fill.git"
+  },
+  "keywords": [
+    "hachure",
+    "lines",
+    "polygon",
+    "plotter"
+  ],
+  "author": "Preet Shihn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pshihn/hachure-fill/issues"
+  },
+  "homepage": "https://github.com/pshihn/hachure-fill#readme"
+}
