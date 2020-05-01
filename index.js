@@ -117,7 +117,7 @@ function straightHachureLines(points, gap) {
   return lines;
 }
 
-function hachureFill(points, angle, gap) {
+export function hachureFill(points, angle, gap) {
   points = points || [];
   angle = angle || 0;
   gap = Math.max(0.1, gap || 5);
@@ -133,5 +133,3 @@ function hachureFill(points, angle, gap) {
   }
   return lines;
 }
-
-export default hachureFill;
