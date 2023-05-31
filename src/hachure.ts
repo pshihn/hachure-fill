@@ -38,19 +38,20 @@ function areSamePoints(p1: Point, p2: Point): boolean {
   return p1[0] === p2[0] && p1[1] === p2[1];
 }
 
-export function hachureLines(polygons: Polygon[], hachureGap: number, hachureAngle: number): Line[] {
+export function hachureLines(polygons: Polygon | Polygon[], hachureGap: number, hachureAngle: number): Line[] {
   const angle = hachureAngle;
   const gap = Math.max(hachureGap, 0.1);
+  const polygonList = (polygons[0] && polygons[0][0] && (typeof polygons[0][0] === 'number')) ? [polygons as Polygon] : polygons as Polygon[];
 
   const rotationCenter: Point = [0, 0];
   if (angle) {
-    for (const polygon of polygons) {
+    for (const polygon of polygonList) {
       rotatePoints(polygon, rotationCenter, angle);
     }
   }
-  const lines = straightHachureLines(polygons, gap);
+  const lines = straightHachureLines(polygonList, gap);
   if (angle) {
-    for (const polygon of polygons) {
+    for (const polygon of polygonList) {
       rotatePoints(polygon, rotationCenter, -angle);
     }
     rotateLines(lines, rotationCenter, -angle);
