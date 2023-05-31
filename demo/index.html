@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>Hachure Fill</title>
+  <style>
+    :root {
+      font-family: sans-serif;
+    }
+
+    #controls {
+      padding: 16px;
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="controls">
+    <div class="vert">
+      <label>Angle: <span id="angleValue">60</span></label>
+      <div>
+        <input type="range" min="0" max="180" value="60" id="angle">
+      </div>
+    </div>
+    <div class="vert">
+      <label>Gap: <span id="gapValue">10</span></label>
+      <div>
+        <input type="range" min="2" max="30" value="10" id="gap">
+      </div>
+    </div>
+  </div>
+  <canvas width="800" height="800"></canvas>
+
+  <script type="module">
+    import { hachureLines } from 'https://unpkg.com/hachure-fill@0.3.0/bin/hachure.js';
+
+    const angleInput = document.querySelector('#angle');
+    const gapInput = document.querySelector('#gap');
+    const angleValue = document.querySelector('#angleValue');
+    const gapValue = document.querySelector('#gapValue');
+
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const polygons = [
+      [
+        [10, 10],
+        [200, 10],
+        [300, 100],
+        [260, 150],
+        [60, 200]
+      ],
+      [
+        [310, 10],
+        [500, 10],
+        [400, 100],
+        [600, 100],
+        [360, 200]
+      ],
+      [
+        [10, 260],
+        [200, 260],
+        [100, 400],
+        [50, 300],
+        [300, 350],
+        [60, 450]
+      ],
+      [
+        [
+          [310, 260],
+          [500, 260],
+          [600, 350],
+          [560, 400],
+          [360, 450]
+        ],
+        [
+          [450, 300],
+          [550, 360],
+          [450, 400],
+          [350, 360],
+          [450, 300]
+        ]
+      ]
+    ];
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Get hachure lines
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 2;
+      const angle = parseInt(angleInput.value, 10);
+      const gap = parseInt(gapInput.value, 10);
+
+      for (const vertices of polygons) {
+        ctx.beginPath();
+        const lines = hachureLines(vertices, gap, angle);
+        for (const line of lines) {
+          const p1 = line[0], p2 = line[1];
+          ctx.moveTo(p1[0], p1[1]);
+          ctx.lineTo(p2[0], p2[1]);
+        }
+        ctx.stroke()
+      }
+
+      // Draw the polygon
+      ctx.strokeStyle = '#000';
+      for (const vertices of [polygons[0], polygons[1], polygons[2], polygons[3][0], polygons[3][1]]) {
+        ctx.beginPath();
+        for (let i = 0; i < vertices.length; i++) {
+          if (i === 0) {
+            ctx.moveTo(vertices[i][0], vertices[i][1]);
+          } else {
+            ctx.lineTo(vertices[i][0], vertices[i][1]);
+          }
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+    };
+
+    angleInput.addEventListener('input', () => {
+      angleValue.textContent = angleInput.value;
+      draw();
+    });
+    gapInput.addEventListener('input', () => {
+      gapValue.textContent = gapInput.value;
+      draw();
+    });
+
+    draw();
+  </script>
+</body>
+
+</html>
