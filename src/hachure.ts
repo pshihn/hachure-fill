@@ -39,7 +39,7 @@ function areSamePoints(p1: Point, p2: Point): boolean {
 }
 
 export function hachureLines(polygons: Polygon[], hachureGap: number, hachureAngle: number): Line[] {
-  const angle = hachureAngle + 90;
+  const angle = hachureAngle;
   const gap = Math.max(hachureGap, 0.1);
 
   const rotationCenter: Point = [0, 0];
