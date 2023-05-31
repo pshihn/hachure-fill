@@ -41,10 +41,12 @@ const vertices = [
   [60, 200]
 ];
 
-// Lines filling the polygon at an angle of 45 degrees. Lines are 10px apart.
+// Lines filling the polygon 
+// at an angle of 45 degrees. 
+// Lines are 10px apart.
 const lines = hachureFill(vertices, 45, 10);
 
-// Draw lines
+// Draw lines...
 ```
 
 ### hachureFill(points: Point[][], angle: number, gap: number): Line[];
