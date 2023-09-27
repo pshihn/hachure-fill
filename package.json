@@ -1,6 +1,6 @@
 {
   "name": "hachure-fill",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Fill a polygon with lines ",
   "main": "bin/hachure.js",
   "types": "bin/hachure.d.ts",

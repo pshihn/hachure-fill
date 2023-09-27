@@ -166,7 +166,7 @@ function straightHachureLines(polygons: Polygon[], gap: number, hachureStepOffse
     }
     y += hachureStepOffset;
     activeEdges.forEach((ae) => {
-      ae.edge.x = ae.edge.x + ae.edge.islope;
+      ae.edge.x = ae.edge.x + (hachureStepOffset * ae.edge.islope);
     });
     iteration++;
   }
