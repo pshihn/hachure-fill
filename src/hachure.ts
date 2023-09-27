@@ -38,7 +38,7 @@ function areSamePoints(p1: Point, p2: Point): boolean {
   return p1[0] === p2[0] && p1[1] === p2[1];
 }
 
-export function hachureLines(polygons: Polygon | Polygon[], hachureGap: number, hachureAngle: number): Line[] {
+export function hachureLines(polygons: Polygon | Polygon[], hachureGap: number, hachureAngle: number, hachureStepOffset = 1): Line[] {
   const angle = hachureAngle;
   const gap = Math.max(hachureGap, 0.1);
   const polygonList = (polygons[0] && polygons[0][0] && (typeof polygons[0][0] === 'number')) ? [polygons as Polygon] : polygons as Polygon[];
@@ -49,7 +49,7 @@ export function hachureLines(polygons: Polygon | Polygon[], hachureGap: number, 
       rotatePoints(polygon, rotationCenter, angle);
     }
   }
-  const lines = straightHachureLines(polygonList, gap);
+  const lines = straightHachureLines(polygonList, gap, hachureStepOffset);
   if (angle) {
     for (const polygon of polygonList) {
       rotatePoints(polygon, rotationCenter, -angle);
@@ -59,7 +59,7 @@ export function hachureLines(polygons: Polygon | Polygon[], hachureGap: number, 
   return lines;
 }
 
-function straightHachureLines(polygons: Polygon[], gap: number): Line[] {
+function straightHachureLines(polygons: Polygon[], gap: number, hachureStepOffset: number): Line[] {
   const vertexArray: Point[][] = [];
   for (const polygon of polygons) {
     const vertices = [...polygon];
@@ -164,7 +164,7 @@ function straightHachureLines(polygons: Polygon[], gap: number): Line[] {
         }
       }
     }
-    y++;
+    y += hachureStepOffset;
     activeEdges.forEach((ae) => {
       ae.edge.x = ae.edge.x + ae.edge.islope;
     });
