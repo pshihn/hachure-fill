@@ -148,7 +148,7 @@ function straightHachureLines(polygons: Polygon[], gap: number, hachureStepOffse
     });
 
     // fill between the edges
-    if (iteration % gap === 0) {
+    if ((hachureStepOffset !== 1) || (iteration % gap === 0)) {
       if (activeEdges.length > 1) {
         for (let i = 0; i < activeEdges.length; i = i + 2) {
           const nexti = i + 1;
